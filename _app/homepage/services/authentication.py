@@ -46,6 +46,7 @@ class AuthenticationService:
         *,
         cache_key: str,
         user_verification: str,
+        challenge_generation: str = "",
         existing_credentials: List[WebAuthnCredential],
     ) -> PublicKeyCredentialRequestOptions:
         """
@@ -59,9 +60,15 @@ class AuthenticationService:
         elif user_verification == "required":
             _user_verification = UserVerificationRequirement.REQUIRED
 
+        if challenge_generation == "random":
+            _challenge = b""
+        elif challenge_generation == "fixed":
+            _challenge = b"1234567890"
+
         authentication_options = generate_authentication_options(
             rp_id=settings.RP_ID,
             user_verification=_user_verification,
+            challenge=_challenge,
             allow_credentials=[
                 PublicKeyCredentialDescriptor(
                     id=base64url_to_bytes(cred.id), transports=cred.transports

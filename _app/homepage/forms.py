@@ -62,6 +62,13 @@ class AuthenticationOptionsRequestForm(forms.Form):
             ("required", "Required"),
         ],
     )
+    challenge_generation = forms.ChoiceField(
+        required=True,
+        choices=[
+            ("random", "Random"),
+            ("fixed", "Fixed")
+        ],
+    )
 
 
 class AuthenticationResponseForm(forms.Form):

@@ -359,6 +359,26 @@
                   </template>
                 </select>
               </label>
+
+              <!-- Challenge Generation -->
+              <label for="optAuthChallengeGeneration" class="col-md-6 col-sm-12 mb-2">
+                Challenge Generation
+                <br>
+                <select
+                  name="optAuthChallengeGeneration"
+                  id="optAuthChallengeGeneration"
+                  class="custom-select"
+                  x-model="options.authChallengeGeneration"
+                >
+                  <template x-for="option in challengeGenerationOpts" :key="option.value">
+                    <option
+                      :value="option.value"
+                      :selected="options.authChallengeGeneration === option.value"
+                      x-text="option.label"
+                    ></option>
+                  </template>
+                </select>
+              </label>
             </div>
 
             <div class="row">
@@ -480,6 +500,14 @@
               break;
             }
           }
+
+          const _authChallengeGeneration = currentParams.get('authChallengeGeneration');
+          for (const cg of this.challengeGenerationOpts) {
+            if (cg.value === _authChallengeGeneration) {
+              this.options.authChallengeGeneration = _authChallengeGeneration;
+              break;
+            }
+          }
         }
 
         // Update query parameters when options change
@@ -539,6 +567,7 @@
         regHints: [],
         // Authentication
         authUserVerification: 'preferred',
+        authChallengeGeneration: 'random',
       },
       username: '',
       alert: {
@@ -574,6 +603,11 @@
         { label: 'Discouraged', value: 'discouraged' },
         { label: 'Preferred', value: 'preferred' },
         { label: 'Required', value: 'required' },
+      ],
+      // Possible values for options.authChallengeGeneration
+      challengeGenerationOpts: [
+        { label: 'Random', value: 'random' },
+        { label: 'Fixed', value: 'fixed' },
       ],
 
       // Event handlers
@@ -746,6 +780,7 @@
       async _startAuthentication(startConditionalUI = false) {
         const {
           authUserVerification,
+          authChallengeGeneration,
         } = this.options;
 
         let username = this.username;
@@ -761,6 +796,7 @@
           body: JSON.stringify({
             username,
             user_verification: authUserVerification,
+            challenge_generation: authChallengeGeneration,
           }),
         });
         const authenticationOptionsJSON = await apiAuthOptsResp.json();
