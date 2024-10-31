@@ -162,6 +162,76 @@
                   </label>
                 </div>
 
+                <!-- Algorithm - EDDSA -->
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input
+                    type="checkbox"
+                    name="optAlgEDDSA"
+                    id="optAlgEDDSA"
+                    class="custom-control-input"
+                    x-model="options.algEDDSA"
+                  />
+                  <label for="optAlgEDDSA" class="custom-control-label">
+                    Support EDDSA
+                  </label>
+                </div>
+
+                <!-- Algorithm - ES512 -->
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input
+                    type="checkbox"
+                    name="optAlgES512"
+                    id="optAlgES512"
+                    class="custom-control-input"
+                    x-model="options.algES512"
+                  />
+                  <label for="optAlgES512" class="custom-control-label">
+                    Support ES512
+                  </label>
+                </div>
+
+                <!-- Algorithm - PSS256 -->
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input
+                    type="checkbox"
+                    name="optAlgPSS256"
+                    id="optAlgPSS256"
+                    class="custom-control-input"
+                    x-model="options.algPSS256"
+                  />
+                  <label for="optAlgPSS256" class="custom-control-label">
+                    Support PSS256
+                  </label>
+                </div>
+
+                <!-- Algorithm - PSS384 -->
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input
+                    type="checkbox"
+                    name="optAlgPSS384"
+                    id="optAlgPSS384"
+                    class="custom-control-input"
+                    x-model="options.algPSS384"
+                  />
+                  <label for="optAlgPSS384" class="custom-control-label">
+                    Support PSS384
+                  </label>
+                </div>
+
+                <!-- Algorithm - PSS512 -->
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input
+                    type="checkbox"
+                    name="optAlgPSS512"
+                    id="optAlgPSS512"
+                    class="custom-control-input"
+                    x-model="options.algPSS512"
+                  />
+                  <label for="optAlgPSS512" class="custom-control-label">
+                    Support PSS512
+                  </label>
+                </div>
+
                 <!-- Algorithm - RS256 -->
                 <div class="custom-control custom-checkbox custom-control-inline">
                   <input
@@ -173,6 +243,48 @@
                   />
                   <label for="optAlgRS256" class="custom-control-label">
                     Support RS256
+                  </label>
+                </div>
+
+                <!-- Algorithm - RS384 -->
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input
+                    type="checkbox"
+                    name="optAlgRS384"
+                    id="optAlgRS384"
+                    class="custom-control-input"
+                    x-model="options.algRS384"
+                  />
+                  <label for="optAlgRS384" class="custom-control-label">
+                    Support RS384
+                  </label>
+                </div>
+
+                <!-- Algorithm - RS512 -->
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input
+                    type="checkbox"
+                    name="optAlgRS512"
+                    id="optAlgRS512"
+                    class="custom-control-input"
+                    x-model="options.algRS512"
+                  />
+                  <label for="optAlgRS512" class="custom-control-label">
+                    Support RS512
+                  </label>
+                </div>
+
+                <!-- Algorithm - RS1 -->
+                <div class="custom-control custom-checkbox custom-control-inline">
+                  <input
+                    type="checkbox"
+                    name="optAlgRS1"
+                    id="optAlgRS1"
+                    class="custom-control-input"
+                    x-model="options.algRS1"
+                  />
+                  <label for="optAlgRS1" class="custom-control-label">
+                    Support RS1 (Deprecated)
                   </label>
                 </div>
               </section>
@@ -301,7 +413,15 @@
            * Registration Settings
            */
           this.options.algES256 = currentParams.get('algES256') === 'true';
+          this.options.algEDDSA = currentParams.get('algEDDSA') === 'true';
+          this.options.algES512 = currentParams.get('algES512') === 'true';
+          this.options.algPSS256 = currentParams.get('algPSS256') === 'true';
+          this.options.algPSS384 = currentParams.get('algPSS384') === 'true';
+          this.options.algPSS512 = currentParams.get('algPSS512') === 'true';
           this.options.algRS256 = currentParams.get('algRS256') === 'true';
+          this.options.algRS384 = currentParams.get('algRS384') === 'true';
+          this.options.algRS512 = currentParams.get('algRS512') === 'true';
+          this.options.algRS1 = currentParams.get('algRS1') === 'true';
 
           const _regUserVerification = currentParams.get('regUserVerification');
           for (const uv of this.userVerificationOpts) {
@@ -406,7 +526,15 @@
         attestation: 'none',
         attachment: 'all',
         algES256: true,
+        algEDDSA: true,
+        algES512: true,
+        algPSS256: true,
+        algPSS384: true,
+        algPSS512: true,
         algRS256: true,
+        algRS384: true,
+        algRS512: true,
+        algRS1: true,
         discoverableCredential: 'preferred',
         regHints: [],
         // Authentication
@@ -505,7 +633,15 @@
         const {
           regUserVerification,
           algES256,
+          algEDDSA,
+          algES512,
+          algPSS256,
+          algPSS384,
+          algPSS512,
           algRS256,
+          algRS384,
+          algRS512,
+          algRS1,
           attestation,
           attachment,
           discoverableCredential,
@@ -518,8 +654,40 @@
           algorithms.push('es256');
         }
 
+        if (algEDDSA) {
+          algorithms.push('eddsa');
+        }
+
+        if (algES512) {
+          algorithms.push('es512');
+        }
+
+        if (algPSS256) {
+          algorithms.push('pss256');
+        }
+
+        if (algPSS384) {
+          algorithms.push('pss384');
+        }
+
+        if (algPSS512) {
+          algorithms.push('pss512');
+        }
+
         if (algRS256) {
           algorithms.push('rs256');
+        }
+
+        if (algRS384) {
+          algorithms.push('rs384');
+        }
+
+        if (algRS512) {
+          algorithms.push('rs512');
+        }
+
+        if (algRS1) {
+          algorithms.push('rs1');
         }
 
         if (!this.username) {

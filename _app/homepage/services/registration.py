@@ -104,8 +104,32 @@ class RegistrationService:
             if "es256" in algorithms:
                 supported_pub_key_algs.append(COSEAlgorithmIdentifier.ECDSA_SHA_256)
 
+            if "eddsa" in algorithms:
+                supported_pub_key_algs.append(COSEAlgorithmIdentifier.EDDSA)
+
+            if "es512" in algorithms:
+                supported_pub_key_algs.append(COSEAlgorithmIdentifier.ECDSA_SHA_512)
+
+            if "pss256" in algorithms:
+                supported_pub_key_algs.append(COSEAlgorithmIdentifier.RSASSA_PSS_SHA_256)
+
+            if "pss384" in algorithms:
+                supported_pub_key_algs.append(COSEAlgorithmIdentifier.RSASSA_PSS_SHA_384)
+
+            if "pss512" in algorithms:
+                supported_pub_key_algs.append(COSEAlgorithmIdentifier.RSASSA_PSS_SHA_512)
+
             if "rs256" in algorithms:
                 supported_pub_key_algs.append(COSEAlgorithmIdentifier.RSASSA_PKCS1_v1_5_SHA_256)
+
+            if "rs384" in algorithms:
+                supported_pub_key_algs.append(COSEAlgorithmIdentifier.RSASSA_PKCS1_v1_5_SHA_384)
+
+            if "rs512" in algorithms:
+                supported_pub_key_algs.append(COSEAlgorithmIdentifier.RSASSA_PKCS1_v1_5_SHA_512)
+
+            if "rs1" in algorithms:
+                supported_pub_key_algs.append(COSEAlgorithmIdentifier.RSASSA_PKCS1_v1_5_SHA_1)
 
         registration_options = generate_registration_options(
             rp_id=settings.RP_ID,

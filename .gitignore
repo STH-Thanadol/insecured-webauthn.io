@@ -5,3 +5,4 @@ _psql
 *.env
 .DS_Store
 _app/**/styles/*.css
+.python-version
